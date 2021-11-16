@@ -17,21 +17,7 @@ $Global:InfoLine = "`t[*]"
 function Write-Good { param( $String ) Write-Host $Global:PlusLine  $String -ForegroundColor 'Green'}
 function Write-Bad  { param( $String ) Write-Host $Global:ErrorLine $String -ForegroundColor 'red'  }
 function Write-Info { param( $String ) Write-Host $Global:InfoLine $String -ForegroundColor 'gray' }
-function ShowBanner {
-    $banner  = @()
-    $banner+= $Global:Spacing + ''
-    $banner+= $Global:Spacing + '██╗   ██╗██╗   ██╗██╗     ███╗   ██╗ █████╗ ██████╗ '
-    $banner+= $Global:Spacing + '██║   ██║██║   ██║██║     ████╗  ██║██╔══██╗██╔══██╗'
-    $banner+= $Global:Spacing + '██║   ██║██║   ██║██║     ██╔██╗ ██║███████║██║  ██║'
-    $banner+= $Global:Spacing + '╚██╗ ██╔╝██║   ██║██║     ██║╚██╗██║██╔══██║██║  ██║'
-    $banner+= $Global:Spacing + ' ╚████╔╝ ╚██████╔╝███████╗██║ ╚████║██║  ██║██████╔╝'
-    $banner+= $Global:Spacing + '  ╚═══╝   ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝'
-    $banner+= $Global:Spacing + ''                                                  
-    $banner+= $Global:Spacing + 'By wazehell @safe_buffer'
-    $banner | foreach-object {
-        Write-Host $_ -ForegroundColor (Get-Random -Input @('Green','Cyan','Yellow','gray','white'))
-    }                             
-}
+
 function VulnAD-GetRandom {
    Param(
      [array]$InputList
@@ -227,7 +213,7 @@ function Invoke-VulnAD {
         [System.String]
         $DomainName
     )
-    ShowBanner
+
     $Global:Domain = $DomainName
     Set-ADDefaultDomainPasswordPolicy -Identity $Global:Domain -LockoutDuration 00:01:00 -LockoutObservationWindow 00:01:00 -ComplexityEnabled $false -ReversibleEncryptionEnabled $False -MinPasswordLength 4
     VulnAD-AddADUser -limit $UsersLimit
